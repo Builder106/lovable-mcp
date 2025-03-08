@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "lovable-ui": {
+      "command": "python",
+      "args": ["server.py"],
+      "env": {
+        "DESIGN_SYSTEM": "tailwind",
+        "UI_FRAMEWORK": "react"
+      },
+      "disabled": false,
+      "autoApprove": ["generate_component", "apply_pattern"]
+    }
+  }
+}
