@@ -5,39 +5,35 @@
 lovable-mcp/
 ├── src/
 │   ├── server/
-│   │   ├── __init__.py
-│   │   ├── server.py          # Main MCP server implementation
-│   │   └── config.py          # Server configuration
+│   │   ├── index.js          # Main MCP server implementation
+│   │   └── config.js          # Server configuration
 │   ├── tools/
-│   │   ├── __init__.py
-│   │   ├── component_gen.py   # UI component generation
-│   │   ├── pattern_impl.py    # Design pattern implementation
-│   │   └── bug_detector.py    # Frontend bug detection
+│   │   ├── component_gen.js   # UI component generation
+│   │   ├── pattern_impl.js    # Design pattern implementation
+│   │   └── bug_detector.js    # Frontend bug detection
 │   ├── models/
-│   │   ├── __init__.py
-│   │   ├── components.py      # Component type definitions
-│   │   └── patterns.py        # Design pattern definitions
+│   │   ├── components.js      # Component type definitions
+│   │   └── patterns.js        # Design pattern definitions
 │   └── utils/
-│       ├── __init__.py
-│       ├── logger.py          # Logging configuration
-│       └── validators.py      # Input/output validation
+│       ├── logger.js          # Logging configuration
+│       └── validators.js      # Input/output validation
 ├── tests/
-│   ├── test_components.py
-│   ├── test_patterns.py
-│   └── test_bug_detector.py
+│   ├── test_components.js
+│   ├── test_patterns.js
+│   └── test_bug_detector.js
 ├── config/
 │   └── mcp_config.json        # MCP server configuration
-└── requirements.txt
+└── package.json
 ```
 
 ## 2. Implementation Phases
 
 ### Phase 1: Core Setup (Week 1)
 - [x] Initialize project structure
-- [x] Set up Python environment with MCP SDK
+- [x] Set up Node.js environment with MCP SDK
 - [x] Configure logging system
 - [x] Implement basic server configuration
-- [x] Create type definitions using Pydantic
+- [x] Create type definitions using TypeScript
 
 ### Phase 2: Tool Implementation (Weeks 2-3)
 1. UI Component Generation
@@ -108,11 +104,11 @@ lovable-mcp/
 
 ### Core Dependencies
 ```
-mcp-sdk>=1.0.0
-pydantic>=2.0.0
-aiohttp>=3.8.0
-python-dotenv>=1.0.0
-pytest>=7.0.0
+"@modelcontextprotocol/sdk": "^1.0.0",
+"typescript": "^4.0.0",
+"express": "^4.17.1",
+"dotenv": "^10.0.0",
+"jest": "^27.0.0"
 ```
 
 ### Security Considerations
