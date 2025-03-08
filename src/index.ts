@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { McpServer, StdioServerTransport } from '@modelcontextprotocol/sdk';
 import { z } from 'zod';
 
 // Types
@@ -51,8 +50,8 @@ server.tool(
       const propsString = Object.keys(props).join(', ');
       const template = `
 export interface ${type}Props {
-  ${Object.entries(props).map(([key, type]) => `${key}: ${type}`).join(';
-  ')};
+  ${Object.entries(props).map(([key, type]) => `${key}: ${type}`).join(',\n  ')}
+
 }
 
 export const ${type} = ({ ${propsString} }: ${type}Props): JSX.Element => {
