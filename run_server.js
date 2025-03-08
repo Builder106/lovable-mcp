@@ -1,10 +1,14 @@
-const { spawn } = require('child_process');
-const path = require('path');
-const fs = require('fs');
+import { spawn } from 'child_process';
+import path from 'path';
+import { existsSync } from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Verify server file exists
 const serverPath = path.join(__dirname, 'dist/index.js');
-if (!fs.existsSync(serverPath)) {
+if (!existsSync(serverPath)) {
     console.error(`Error: Server file not found at ${serverPath}. Please run 'npm run build' first.`);
     process.exit(1);
 }
@@ -46,7 +50,7 @@ process.on('SIGINT', () => {
 });
 
 // Export server info for MCP Inspector
-module.exports = {
+export default {
     name: 'lovable.dev',
     version: '1.0.0',
     transport: 'stdio'
