@@ -1,14 +1,21 @@
 {
-  "mcpServers": {
+  "mcpExtension": {
     "lovable-ui": {
-      "command": "python",
-      "args": ["server.py"],
-      "env": {
-        "DESIGN_SYSTEM": "tailwind",
-        "UI_FRAMEWORK": "react"
+      "entryPoint": "../src/index.js",
+      "tools": [
+        "generate_component",
+        "apply_pattern",
+        "detect_bugs"
+      ],
+      "configurationDefaults": {
+        "designSystem": "tailwind",
+        "uiFramework": "react"
       },
-      "disabled": false,
-      "autoApprove": ["generate_component", "apply_pattern"]
+      "capabilities": {
+        "codeGeneration": true,
+        "codeCompletion": true,
+        "uiAnalysis": true
+      }
     }
   }
 }

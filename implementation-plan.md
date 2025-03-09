@@ -1,12 +1,11 @@
-# Lovable.dev MCP Implementation Plan
+# Lovable.dev IDE Integration via MCP
 
 ## 1. Project Structure
 ```
 lovable-mcp/
 ├── src/
-│   ├── server/
-│   │   ├── index.js          # Main MCP server implementation
-│   │   └── config.js          # Server configuration
+│   ├── index.ts               # MCP plugin entry point
+│   ├── modelcontextprotocol.d.ts # Type definitions for MCP
 │   ├── tools/
 │   │   ├── component_gen.js   # UI component generation
 │   │   ├── pattern_impl.js    # Design pattern implementation
@@ -22,7 +21,7 @@ lovable-mcp/
 │   ├── test_patterns.js
 │   └── test_bug_detector.js
 ├── config/
-│   └── mcp_config.json        # MCP server configuration
+│   └── mcp_config.json        # MCP plugin configuration
 └── package.json
 ```
 
@@ -30,72 +29,55 @@ lovable-mcp/
 
 ### Phase 1: Core Setup (Week 1)
 - [x] Initialize project structure
-- [x] Set up Node.js environment with MCP SDK
-- [x] Configure logging system
-- [x] Implement basic server configuration
-- [x] Create type definitions using TypeScript
+- [ ] Set up TypeScript environment with MCP SDK
+- [ ] Configure logging system
+- [ ] Implement IDE-specific adapters
+- [ ] Create type definitions using TypeScript
 
 ### Phase 2: Tool Implementation (Weeks 2-3)
 1. UI Component Generation
-   - [x] Implement component type definitions
-   - [x] Create generation pipeline
-   - [x] Add accessibility checks
-   - [x] Implement responsive design validation
+   - [ ] Implement component type definitions
+   - [ ] Create generation pipeline
+   - [ ] Add accessibility checks
+   - [ ] Implement responsive design validation
+   - [ ] IDE-specific component previews
 
 2. Design Pattern Implementation
-   - [x] Define pattern models
-   - [x] Create pattern application logic
-   - [x] Implement constraint validation
-   - [x] Add customization options
+   - [ ] Define pattern models
+   - [ ] Create pattern application logic
+   - [ ] Implement constraint validation
+   - [ ] Add customization options
+   - [ ] IDE-specific pattern visualization
 
 3. Bug Detection & Fixes
-   - [x] Implement UI consistency checker
-   - [x] Create fix suggestion system
-   - [x] Add automated fix application
+   - [ ] Implement UI consistency checker
+   - [ ] Create fix suggestion system
+   - [ ] Add automated fix application through IDE
 
 ### Phase 3: Integration & Testing (Week 4)
-- [x] Implement MCP server endpoints
-- [x] Set up authentication system
-- [x] Create unit test suite
-- [x] Create integration tests
-    - [x] Test complete toolchain flow
-    - [x] Verify authentication system
-    - [x] Test error handling scenarios
-- [ ] Perform load testing
-    - [ ] Implement performance benchmarks
-        - Response time measurements
-        - Memory usage tracking
-        - CPU utilization monitoring
-    - [ ] Test concurrent request handling
-        - Simulate multiple users
-        - Test rate limiting effectiveness
-        - Measure throughput
-    - [ ] Monitor resource usage
-        - Server memory footprint
-        - Database connection pool
-        - Network bandwidth usage
-- [ ] Document API endpoints
-    - [ ] OpenAPI/Swagger documentation
-    - [ ] Usage examples
-    - [ ] Error handling guide
+- [ ] Implement MCP plugin hooks
+- [ ] Create extension manifests for major IDEs (VS Code, JetBrains)
+- [ ] Create unit test suite
+- [ ] Create integration tests
+    - [ ] Test complete toolchain flow
+    - [ ] Verify IDE integration
+    - [ ] Test error handling scenarios
 
 ## 3. Technical Specifications
 
-### MCP Server Configuration
+### MCP Plugin Configuration
 ```json
 {
-  "mcpServers": {
+  "mcpExtension": {
     "lovable-ui": {
-      "host": "localhost",
-      "port": 3000,
       "tools": [
         "generate_component",
         "apply_pattern",
         "detect_bugs"
       ],
-      "auth": {
-        "type": "api_key",
-        "required": true
+      "configurationDefaults": {
+        "designSystem": "tailwind",
+        "uiFramework": "react"
       }
     }
   }
@@ -106,36 +88,37 @@ lovable-mcp/
 ```
 "@modelcontextprotocol/sdk": "^1.0.0",
 "typescript": "^4.0.0",
-"express": "^4.17.1",
-"dotenv": "^10.0.0",
 "jest": "^27.0.0"
 ```
 
-### Security Considerations
-1. API Key Authentication
-   - Secure storage of API keys
-   - Rate limiting implementation
-   - Request validation
+### IDE Integration Points
+1. Code Generation
+   - Component scaffolding
+   - Design pattern application
+   - Code completion
 
-2. Data Validation
-   - Input sanitization
-   - Output validation
-   - Error handling
+2. UI/UX Analysis
+   - Design consistency checking
+   - Accessibility validation
+   - Responsive design verification
+
+3. Visualization
+   - Component previews
+   - Pattern relationships
+   - Design system consistency
 
 ## 4. Testing Protocol
-
 ### Unit Tests
 - Component generation accuracy
 - Pattern implementation correctness
 - Bug detection reliability
 
 ### Integration Tests
-
-#### MCP Server Communication Tests
-- Test API key authentication flow
-- Verify request/response formats
-- Test rate limiting behavior
-- Validate error responses
+#### IDE Integration Tests
+- Test extension activation
+- Verify tool availability
+- Test configuration options
+- Validate UI/UX feedback loop
 
 #### Tool Chain Integration Tests
 1. Component Generation Flow
@@ -156,43 +139,28 @@ lovable-mcp/
    - Verify fix suggestions
    - Test automated fixes
 
-#### Error Handling Tests
-- Invalid authentication
-- Malformed requests
-- Rate limit exceeded
-- Invalid component types
-- Pattern constraint violations
-- Server timeout scenarios
-
-### Performance Tests
-- Response time benchmarks
-- Resource usage monitoring
-- Concurrent request handling
-
 ## 5. Deployment Checklist
 - [ ] All unit tests passing
 - [ ] Integration tests complete
-- [ ] Performance benchmarks met
-- [ ] Security audit completed
 - [ ] Documentation updated
 - [ ] Error handling verified
-- [ ] Logging system configured
-- [ ] Backup system in place
+- [ ] IDE marketplace submissions prepared
+   - [ ] VS Code Extension
+   - [ ] JetBrains Plugin
+   - [ ] Other IDE integrations
 
 ## 6. Maintenance Plan
 1. Regular Updates
    - Weekly dependency updates
    - Monthly security patches
    - Quarterly feature updates
-
+   
 2. Monitoring
-   - Server health checks
-   - Performance metrics
-   - Error rate tracking
    - Usage statistics
-
+   - Error reporting
+   - Feature requests
+   
 3. Documentation
-   - API documentation
    - Integration guides
    - Troubleshooting guides
    - Change logs

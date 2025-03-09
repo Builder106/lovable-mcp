@@ -1,33 +1,40 @@
 #!/usr/bin/env node
-
-import express from 'express';
-import { Server } from '@modelcontextprotocol/sdk/server';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
-import config from './server/config.js';
+import { PluginClient } from '@modelcontextprotocol/sdk/plugin';
+import { StdioPluginTransport } from '@modelcontextprotocol/sdk/plugin/stdio';
 import { generateComponent } from './tools/component_gen.js';
 import { applyPattern } from './tools/pattern_impl.js';
 import { detectBugs } from './tools/bug_detector.js';
+import { initializeLogger } from './utils/logger.js';
 
-const app = express();
-const port = config.port || 3000;
+// Initialize logger for IDE integration
+const logger = initializeLogger('lovable-mcp-plugin');
 
-const server = new Server({
+// Create MCP plugin client
+const client = new PluginClient({
   name: 'lovable-ui',
   version: '1.0.0',
   tools: {
     generate_component: generateComponent,
     apply_pattern: applyPattern,
     detect_bugs: detectBugs,
-  },
-  auth: {
-    type: 'api_key',
-    required: true,
-  },
+  }
 });
 
-const transport = new StdioServerTransport();
-server.connect(transport);
+// Connect to IDE using stdio transport
+const transport = new StdioPluginTransport();
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// Initialize plugin and handle any errors
+try {
+  client.connect(transport);
+  logger.info('Lovable.dev MCP plugin initialized successfully');
+} catch (error) {
+  logger.error('Failed to initialize Lovable.dev MCP plugin', error);
+  process.exit(1);
+}
+
+// Graceful shutdown handling
+process.on('SIGINT', () => {
+  logger.info('Shutting down Lovable.dev MCP plugin');
+  client.disconnect();
+  process.exit(0);
 });

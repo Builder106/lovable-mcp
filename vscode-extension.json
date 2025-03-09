@@ -1,31 +1,27 @@
 {
-  "name": "lovable-mcp-ide",
+  "name": "lovable-dev-tools",
+  "displayName": "Lovable.dev UI/UX Tools",
+  "description": "MCP-powered UI/UX development tools for creating beautiful, accessible interfaces",
   "version": "1.0.0",
-  "description": "MCP IDE integration for lovable.dev UI/UX tooling",
-  "main": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "start": "node --loader ts-node/esm src/index.ts",
-    "dev": "node --loader ts-node/esm src/index.ts",
-    "dev:vscode": "tsc --watch",
-    "lint": "eslint src --ext .ts",
-    "test": "jest",
-    "package": "npm run build && vsce package",
-    "vscode:prepublish": "npm run build"
-  },
-  "keywords": [
-    "ide",
-    "extension",
-    "mcp",
-    "ui",
-    "ux",
-    "design",
-    "lovable"
-  ],
+  "publisher": "lovable-dev",
   "engines": {
     "vscode": "^1.60.0"
   },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:lovable.generateComponent",
+    "onCommand:lovable.applyPattern",
+    "onCommand:lovable.detectBugs",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -47,11 +43,13 @@
         "lovable.designSystem": {
           "type": "string",
           "default": "tailwind",
+          "enum": ["tailwind", "bootstrap", "material", "custom"],
           "description": "Design system to use for component generation"
         },
         "lovable.uiFramework": {
           "type": "string",
           "default": "react",
+          "enum": ["react", "vue", "angular", "svelte"],
           "description": "UI framework to generate components for"
         },
         "lovable.accessibilityLevel": {
@@ -63,19 +61,32 @@
       }
     }
   },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.6.1",
-    "zod": "^3.22.4"
+  "mcpExtension": {
+    "lovable-ui": {
+      "entryPoint": "./dist/index.js",
+      "tools": [
+        "generate_component",
+        "apply_pattern",
+        "detect_bugs"
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "test": "jest"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0",
     "@types/node": "^20.11.19",
     "@types/vscode": "^1.60.0",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "eslint": "^8.56.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "vsce": "^2.15.0"
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1"
   }
 }
