@@ -20,10 +20,15 @@ export async function generateComponent(data) {
     angular: generateAngularComponent,
     svelte: generateSvelteComponent
   };
-  
-  // Use the appropriate template generator based on framework
-  const generator = templates[framework.toLowerCase()] || templates.react;
-  const code = generator(name, description, designSystem, accessibilityLevel);
+
+  // Try to fetch component template from Lovable.dev API
+  let code = await fetchLovableComponentTemplate(name, designSystem, framework, accessibilityLevel);
+
+  // If no template is fetched, use the appropriate template generator based on framework
+  if (code === null || code === undefined || code.trim() === '<div>/* Component template from Lovable.dev API */</div>') {
+    const generator = templates[framework.toLowerCase()] || templates.react;
+    code = generator(name, description, designSystem, accessibilityLevel);
+  }
   
   return {
     success: true,
@@ -245,4 +250,11 @@ function getDesignSystemStyles(designSystem, component, accessibilityLevel) {
   };
   
   return styles[designSystem] || styles.tailwind;
+}
+
+// Placeholder function to fetch component templates from Lovable.dev API
+async function fetchLovableComponentTemplate(componentName, designSystem, framework, accessibilityLevel) {
+  // TODO: Implement API call to Lovable.dev to fetch component template
+  console.log(`Fetching component template for ${componentName} from Lovable.dev API`);
+  return `<div>/* Component template from Lovable.dev API */</div>`;
 }
