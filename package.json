@@ -57,7 +57,11 @@
         "lovable.accessibilityLevel": {
           "type": "string",
           "default": "AA",
-          "enum": ["A", "AA", "AAA"],
+          "enum": [
+            "A",
+            "AA",
+            "AAA"
+          ],
           "description": "Level of accessibility compliance"
         }
       }
@@ -65,11 +69,15 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.1",
+    "@types/axios": "^0.9.36",
+    "@types/dotenv": "^6.1.1",
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
-    "@types/node": "^20.11.19",
+    "@types/node": "^20.17.24",
     "@types/vscode": "^1.60.0",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
